@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import "./styles.css";
-import TodoItem from "./components/TodoItem";
-import total from "./img/entire.svg";
-import imgBackground from "./img/back.jpg";
+import React, { Component } from 'react';
+import './styles.css';
+import TodoItem from './components/TodoItem';
+import total from './img/entire.svg';
+import imgBackground from './img/back.svg';
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      newItems: "",
+      newItems: '',
       currentFilter: [],
-      todoItems: []
+      todoItems: [],
     };
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -27,38 +27,38 @@ class App extends Component {
           ...todoItems.slice(0, index),
           {
             ...item,
-            isComplete: !isComplete
+            isComplete: !isComplete,
           },
-          ...todoItems.slice(index + 1)
-        ]
+          ...todoItems.slice(index + 1),
+        ],
       });
     };
   }
   onClickRm(index) {
     const { todoItems } = this.state;
     this.setState({
-      todoItems: [...todoItems.slice(0, index), ...todoItems.slice(index + 1)]
+      todoItems: [...todoItems.slice(0, index), ...todoItems.slice(index + 1)],
     });
   }
   onTotal() {
     const { todoItems } = this.state;
     this.setState({
-      todoItems: todoItems.map((item) => ({ ...item, isComplete: true }))
+      todoItems: todoItems.map((item) => ({ ...item, isComplete: true })),
     });
   }
   onFilter(type) {
     const { todoItems } = this.state;
-    if (type === "active") {
+    if (type === 'active') {
       this.setState({
-        currentFilter: todoItems.filter((item) => !item.isComplete)
+        currentFilter: todoItems.filter((item) => !item.isComplete),
       });
-    } else if (type === "completed") {
+    } else if (type === 'completed') {
       this.setState({
-        currentFilter: todoItems.filter((item) => item.isComplete)
+        currentFilter: todoItems.filter((item) => item.isComplete),
       });
     } else {
       this.setState({
-        currentFilter: []
+        currentFilter: [],
       });
     }
   }
@@ -73,14 +73,17 @@ class App extends Component {
         return;
       }
       this.setState({
-        newItems: "",
-        todoItems: [...this.state.todoItems, { title: text, isComplete: false }]
+        newItems: '',
+        todoItems: [
+          ...this.state.todoItems,
+          { title: text, isComplete: false },
+        ],
       });
     }
   }
   onChange(event) {
     this.setState({
-      newItems: event.target.value
+      newItems: event.target.value,
     });
   }
 
@@ -88,20 +91,20 @@ class App extends Component {
     const { todoItems, newItems, currentFilter } = this.state;
     const list = currentFilter.length ? currentFilter : todoItems;
     return (
-      <div className="Title">
+      <div className='Title'>
         <p>todolist</p>
-        <div className="App" style={{ background: `url(${imgBackground})` }}>
-          <div className="Header">
-            <img src={total} width={30} onClick={this.onTotal} alt="icon" />
+        <div className='App' style={{ background: `url(${imgBackground})` }}>
+          <div className='Header'>
+            <img src={total} width={30} onClick={this.onTotal} alt='icon' />
             <input
-              type="text"
-              placeholder="Work to do"
+              type='text'
+              placeholder='Work to do'
               value={newItems}
               onChange={this.onChange}
               onKeyUp={this.onKeyUp}
             />
           </div>
-          <div className="Scroll">
+          <div className='Scroll'>
             {list.map((item, index) => (
               <TodoItem
                 key={index}
@@ -111,10 +114,10 @@ class App extends Component {
               />
             ))}
           </div>
-          <div className="Footer">
-            <button onClick={() => this.onFilter("all")}>All</button>
-            <button onClick={() => this.onFilter("active")}>Active</button>
-            <button onClick={() => this.onFilter("completed")}>
+          <div className='Footer'>
+            <button onClick={() => this.onFilter('all')}>All</button>
+            <button onClick={() => this.onFilter('active')}>Active</button>
+            <button onClick={() => this.onFilter('completed')}>
               Completed
             </button>
           </div>
